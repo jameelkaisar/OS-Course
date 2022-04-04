@@ -1,3 +1,4 @@
+#include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,11 +9,15 @@
 #define MAX_CMD_ARGS 25
 #define MAX_ARG_LEN 50
 
+#define ANSI_COLOR_BLUE "\x1b[34m"
+#define ANSI_COLOR_RESET "\x1b[0m"
+
 // Handle Crtl + C in Shell
 // Configure Arrow Keys
 
 void new_command() {
-    printf("$ ");
+    char cwd[PATH_MAX];
+    printf(ANSI_COLOR_BLUE "%s" ANSI_COLOR_RESET " $ ", getcwd(cwd, sizeof(cwd)));
 }
 
 void cmd_help() {
@@ -43,8 +48,7 @@ int get_command(char cmd[], char command[]) {
     for (i = 0; i != len; ++i) {
         if (cmd[i] == '\n') {
             break;
-        }
-        else if (cmd[i] == '\\') {
+        } else if (cmd[i] == '\\') {
             command[j] = cmd[i + 1];
             ++j;
             ++i;
@@ -60,6 +64,10 @@ int get_command(char cmd[], char command[]) {
     command[j] = '\0';
     // printf("Command: %s (%lu)\n", command, strlen(command));
     return i;
+}
+
+int get_args_list(char cmd[], char* argv[]) {
+    return 1;
 }
 
 // int get_args_list(char cmd[], char* args_list[]) {
@@ -97,18 +105,15 @@ void handle_exec(char cmd[]) {
     int f = fork();
     if (f == 0) {
         char command[MAX_CMD_BUFFER];
-        // char args_list[MAX_CMD_ARGS + 1][MAX_ARG_LEN] = {""};
+        char* args_list[MAX_CMD_ARGS + 1];
+
         int command_index = get_command(cmd, command);
-        // strcpy(args_list[0], command);
-        // int total_args = get_args_list(cmd, args_list);
-        // int total_args = 1;
-        // strcpy(args_list[total_args], (char*)NULL);
 
-        // int status_code = execlp(gc, cmd, (char*)NULL);
-        int status_code = execlp(command, "ls", "-a", (char*)NULL);
-        // int status_code = execlp(command, cmd, (char*)NULL);
+        args_list[0] = command;
+        int total_args = get_args_list(cmd, args_list);
+        args_list[total_args] = NULL;
 
-        // int status_code = execvp(command, args_list);
+        int status_code = execvp(command, args_list);
         if (status_code == -1) {
             printf("[EXCEPTION] Process did not terminate correctly!\n");
             exit(EXIT_FAILURE);
