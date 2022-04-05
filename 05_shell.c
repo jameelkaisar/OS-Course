@@ -14,6 +14,7 @@
 
 // Handle Crtl + C in Shell
 // Configure Arrow Keys
+// Tab Complete
 
 void new_command() {
     char cwd[PATH_MAX];
@@ -44,7 +45,6 @@ int get_command(char cmd[], char command[]) {
     int i = 0;
     int j = 0;
     int len = strlen(cmd);
-    // printf("Length: %d\n", len);
     for (i = 0; i != len; ++i) {
         if (cmd[i] == '\n') {
             break;
@@ -62,44 +62,41 @@ int get_command(char cmd[], char command[]) {
         }
     }
     command[j] = '\0';
-    // printf("Command: %s (%lu)\n", command, strlen(command));
     return i;
 }
 
-int get_args_list(char cmd[], char* argv[]) {
-    return 1;
+int get_args_list(char cmd[], char* args[], int j) {
+    char* arg;
+    int len = strlen(cmd);
+    int i;
+    int k;
+    int quote;
+    for (i = 1; i < MAX_CMD_ARGS && j < len - 1; ++i) {
+        arg = (char*)malloc(MAX_ARG_LEN * sizeof(char));
+        j += 1;
+        k = 0;
+        quote = 0;
+        for (; j < len; ++j) {
+            if (cmd[j] == '\n') {
+                break;
+            } else if (cmd[j] == '\\') {
+                arg[k] = cmd[j + 1];
+                ++j;
+                ++k;
+            } else if (cmd[j] == '\"') {
+                quote = !quote;
+            } else if (cmd[j] == ' ' && !quote) {
+                break;
+            } else {
+                arg[k] = cmd[j];
+                ++k;
+            }
+        }
+        arg[k] = '\0';
+        args[i] = arg;
+    }
+    return i;
 }
-
-// int get_args_list(char cmd[], char* args_list[]) {
-//     int index = 0;
-//     int count = 0;
-//     int i = 0;
-//     int len = strlen(cmd);
-//     while (1) {
-//         for (; i != len; ++i) {
-//             if (cmd[i] == '\\') {
-//                 args_list[index][i] = cmd[i];
-//                 args_list[index][i + 1] = cmd[i + 1];
-//                 ++i;
-//             } else if (cmd[i] == '\"') {
-//                 args_list[index][i] = cmd[i];
-//                 ++count;
-//             } else if (cmd[i] == ' ' && count == 0) {
-//                 break;
-//             } else {
-//                 args_list[index][i] = cmd[i];
-//             }
-//         }
-//         printf("%s\n", args_list[index]);
-//         args_list[index][i] = '\0';
-//         ++index;
-//         if (i == len) {
-//             break;
-//         }
-//     }
-//     args_list[index] = NULL;
-//     return args_list;
-// }
 
 void handle_exec(char cmd[]) {
     int f = fork();
@@ -108,15 +105,24 @@ void handle_exec(char cmd[]) {
         char* args_list[MAX_CMD_ARGS + 1];
 
         int command_index = get_command(cmd, command);
-
-        args_list[0] = command;
-        int total_args = get_args_list(cmd, args_list);
+        args_list[0] = (char*)malloc(MAX_ARG_LEN * sizeof(char));
+        strcpy(args_list[0], command);
+        int total_args = get_args_list(cmd, args_list, command_index);
         args_list[total_args] = NULL;
 
-        int status_code = execvp(command, args_list);
-        if (status_code == -1) {
-            printf("[EXCEPTION] Process did not terminate correctly!\n");
-            exit(EXIT_FAILURE);
+        int status_code;
+        if (!strcmp("cd", command)) {
+            status_code = chdir(args_list[1]);
+            if (status_code == -1) {
+                printf("[EXCEPTION] Process did not terminate correctly!\n");
+                exit(EXIT_FAILURE);
+            }
+        } else {
+            status_code = execvp(command, args_list);
+            if (status_code == -1) {
+                printf("[EXCEPTION] Process did not terminate correctly!\n");
+                exit(EXIT_FAILURE);
+            }
         }
     }
     wait(NULL);
