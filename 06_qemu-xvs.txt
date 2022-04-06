@@ -1,0 +1,66 @@
+Install QEMU:
+"""""""""""""
+https://www.assistedcoding.eu/2017/11/06/install-vx6-operating-system/
+
+Install Requirements:
+"""""""""""""""""""""
+sudo apt-get install qemu-kvm qemu virt-manager virt-viewer libvirt-bin
+
+Clone XV6:
+""""""""""
+git clone https://github.com/mit-pdos/xv6-public.git
+
+Changing Directory:
+"""""""""""""""""""
+cd xv6-public/
+
+Editing Makefile:
+"""""""""""""""""
+gedit Makefile
+and change Line 54 from
+# QEMU = qemu-system-i386
+to
+QEMU = qemu-system-x86_64
+
+Compiling XV6:
+""""""""""""""
+make
+
+Running XV6:
+""""""""""""
+make qemu-nox
+or
+make qemu
+
+Quit XV6:
+"""""""""
+Crtl+a
+c
+quit
+
+
+Write Programs:
+"""""""""""""""
+https://viduniwickramarachchi.medium.com/how-to-add-a-user-program-to-xv6-1209069feee4
+
+hello.c
+"""""""
+#include "types.h"
+#include "stat.h"
+#include "user.h"
+
+int main(int argc, char *argv[]) {
+    printf(1, "Hello! This is my first XV6 program.\n");
+    exit();
+}
+
+Makefile:
+"""""""""
+Add _hello to UPROGS
+Add hello.c to EXTRA
+
+Recompile and Run:
+""""""""""""""""""
+make clean
+make
+make qemu-nox
