@@ -26,8 +26,10 @@ int main() {
         printf("Intentional Delay...\n");
         sleep(2);
         pin = "8421\0";
-        for (int i=0; i!=5; ++i)
+        for (int i=0; i!=5; ++i) {
+            sleep(1);
             write(pipefds[1], pin, 5);
+        }
         exit(EXIT_SUCCESS);
     } else {
         int r;
