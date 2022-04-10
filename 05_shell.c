@@ -1,4 +1,5 @@
 #include <limits.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,13 +13,18 @@
 #define ANSI_COLOR_BLUE "\x1b[34m"
 #define ANSI_COLOR_RESET "\x1b[0m"
 
-// Handle Crtl + C in Shell
 // Configure Arrow Keys
 // Tab Complete
 
 void new_command() {
     char cwd[PATH_MAX];
     printf(ANSI_COLOR_BLUE "%s" ANSI_COLOR_RESET " $ ", getcwd(cwd, sizeof(cwd)));
+}
+
+void sigint_handler(int signum) {
+    printf("\n");
+    new_command();
+    fflush(stdout);
 }
 
 void cmd_help() {
@@ -142,6 +148,7 @@ int handle_command(char cmd[]) {
 }
 
 int main() {
+    signal(SIGINT, sigint_handler);
     char cmd[MAX_CMD_BUFFER];
 
     do {
