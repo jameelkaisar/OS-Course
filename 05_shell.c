@@ -99,25 +99,23 @@ int get_args_list(char cmd[], char* args[], int j) {
 }
 
 void handle_exec(char cmd[]) {
-    int f = fork();
-    if (f == 0) {
-        char command[MAX_CMD_BUFFER];
-        char* args_list[MAX_CMD_ARGS + 1];
+    char command[MAX_CMD_BUFFER];
+    char* args_list[MAX_CMD_ARGS + 1];
+    int command_index = get_command(cmd, command);
+    args_list[0] = (char*)malloc(MAX_ARG_LEN * sizeof(char));
+    strcpy(args_list[0], command);
+    int total_args = get_args_list(cmd, args_list, command_index);
+    args_list[total_args] = NULL;
 
-        int command_index = get_command(cmd, command);
-        args_list[0] = (char*)malloc(MAX_ARG_LEN * sizeof(char));
-        strcpy(args_list[0], command);
-        int total_args = get_args_list(cmd, args_list, command_index);
-        args_list[total_args] = NULL;
-
-        int status_code;
-        if (!strcmp("cd", command)) {
-            status_code = chdir(args_list[1]);
-            if (status_code == -1) {
-                printf("[EXCEPTION] Process did not terminate correctly!\n");
-                exit(EXIT_FAILURE);
-            }
-        } else {
+    int status_code;
+    if (!strcmp("cd", command)) {
+        status_code = chdir(args_list[1]);
+        if (status_code == -1) {
+            printf("[EXCEPTION] Invalid path\n");
+        }
+    } else {
+        int f = fork();
+        if (f == 0) {
             status_code = execvp(command, args_list);
             if (status_code == -1) {
                 printf("[EXCEPTION] Process did not terminate correctly!\n");
