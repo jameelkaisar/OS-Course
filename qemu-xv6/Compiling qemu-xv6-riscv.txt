@@ -1,0 +1,36 @@
+Install QEMU:
+"""""""""""""
+https://pdos.csail.mit.edu/6.828/2019/tools.html
+
+Install Requirements:
+"""""""""""""""""""""
+sudo apt-get install build-essential gdb-multiarch qemu-system-misc gcc-riscv64-linux-gnu binutils-riscv64-linux-gnu make
+
+Clone XV6:
+""""""""""
+git clone https://github.com/mit-pdos/xv6-riscv.git
+
+Changing Directory:
+"""""""""""""""""""
+cd xv6-riscv/
+
+Compiling XV6:
+""""""""""""""
+make
+
+Running XV6:
+""""""""""""
+make qemu
+
+Quit XV6:
+"""""""""
+Crtl+a
+x
+or
+Crtl+a
+c
+quit
+
+Recompile and Run:
+""""""""""""""""""
+make clean && make && make qemu
