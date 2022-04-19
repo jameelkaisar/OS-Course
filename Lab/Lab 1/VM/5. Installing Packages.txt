@@ -1,0 +1,8 @@
+Installing git:
+"""""""""""""""
+sudo apt install git
+
+Installing pip:
+"""""""""""""""
+sudo apt install python3-pip
+

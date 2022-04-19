@@ -1,0 +1,52 @@
+Install WSL:
+""""""""""""
+1. Open Windows Terminal
+2. Run "wsl --install"
+3. Reboot Windows
+4. Enter Username and Password
+
+5. sudo apt update
+6. sudo apt full-upgrade
+7. sudo apt install gedit -y
+   sudo apt install adwaita-icon-theme-full
+8. sudo apt install nautilus -y
+9. sudo apt install x11-apps -y
+10. Install "Remote - WSL" extension in VS Code (Windows)
+
+Updating WSL:
+"""""""""""""
+wsl --update
+wsl --shutdown
+
+WSL Commands:
+"""""""""""""
+1. List Running Distros: wsl --list --running
+2. Launch a Distro: wsl -d Ubuntu-20.04
+3. Terminate Running Distro: wsl --terminate Ubuntu-20.04
+4. Shutdown WSL: wsl --shutdown
+5. List Installed Distros: wsl --list --verbose
+6. List Available Distros: wsl --list --online
+7. Install Distro: wsl --install -d Ubuntu-20.04
+8. Export Distro: wsl --export Ubuntu-20.04 images/Ubuntu20.04_snapshot_xyz.tar
+9. Import Distro: wsl --import Ubuntu20.04_Clone instances/Ubuntu20.04_clone images/Ubuntu20.04_snapshot_xyz.tar --version 2
+                  wsl --shutdown
+                  Restart Terminal
+                  wsl -d Ubuntu20.04_Clone
+                  sudo nano /etc/wsl.conf and write following 2 lines:
+                  [user]
+                  default=ajmi
+                  Save and Exit
+                  exit
+                  wsl --terminate Ubuntu20.04_Clone
+                  wsl -d Ubuntu20.04_Clone
+   You can also create "/etc/wsl.conf" file before exporting tar file.
+
+Mount an External Drive:
+""""""""""""""""""""""""
+sudo mkdir /mnt/h
+sudo mount -t drvfs H: /mnt/h
+cd /mnt/h
+
+Unmount an External Drive:
+""""""""""""""""""""""""""
+sudo umount /mnt/g

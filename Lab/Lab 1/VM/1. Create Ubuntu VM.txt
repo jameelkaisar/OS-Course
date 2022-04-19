@@ -1,0 +1,21 @@
+VirtualBox
+
+Tools
+
+New
+
+Expert Mode
+    Name
+    2 GB
+    Create VHD Now
+Create
+
+20 GB
+VDI
+DA
+Create
+
+Storage -> IDE Secondary Device -> Choose ISO
+
+Start
+

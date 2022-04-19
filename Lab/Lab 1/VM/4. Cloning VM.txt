@@ -1,0 +1,10 @@
+Open VirtualBox and Right Click on VM
+
+Click on Clone
+
+Name: Some Name
+
+Clone type: Full clone
+
+Click on Clone
+

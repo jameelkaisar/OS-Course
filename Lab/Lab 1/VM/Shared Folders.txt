@@ -1,0 +1,20 @@
+Adding Folder to Shared Folders:
+""""""""""""""""""""""""""""""""
+Open VirtualBox
+Click on Guest OS (Eg Ubuntu) -> Settings -> Shared Folders -> Add
+Select Folder Path and Check Auto-mount and Click OK
+Click OK to save
+Start Guest OS
+
+Installing Guest Utils:
+"""""""""""""""""""""""
+sudo apt install virtualbox-guest-utils
+
+Adding User to vboxsf Group:
+""""""""""""""""""""""""""""
+sudo adduser ajmi vboxsf
+
+Rebooting for Changes to Take Place:
+""""""""""""""""""""""""""""""""""""
+sudo reboot
+

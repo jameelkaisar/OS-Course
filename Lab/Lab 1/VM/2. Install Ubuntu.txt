@@ -1,0 +1,23 @@
+Install Ubuntu
+
+Continue
+
+Normal Installation
+Check Updates
+Check third-party
+Continue
+
+Erase Disk
+Install Now, Continue
+
+Name: jameel
+Computer's Name: jameel-VirtualBox
+Username: jameel
+Password: pass
+
+Installing.... Wait...
+
+Restart
+
+Enter
+

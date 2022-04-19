@@ -1,0 +1,9 @@
+Commands:
+"""""""""
+https://linoxide.com/linux-memory-analysis-with-free-and-pmap-command/
+
+ps l
+top
+
+free -h -t
+pmap -x <PID>
