@@ -1,2 +1,4 @@
 *.out
 *.exe
+/test 1.txt
+/test 2.txt
