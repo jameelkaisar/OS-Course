@@ -5,22 +5,23 @@
 
 int main() {
     // create
-    int fd1 = creat("test 1.txt", S_IRWXG);
-    if (fd1 == -1)
+    int fd1 = creat("test 1.txt", 0642);
+    if (fd1 == -1) {
         printf("Cannot create file!\n");
-    else
+    }
+    else {
         printf("File created sucessfully\n");
-
-    // close
-    if (close(fd1) == -1)
-        printf("Cannot close file!\n");
-    else
-        printf("File closed sucessfully\n");
+        // close
+        if (close(fd1) == -1)
+            printf("Cannot close file!\n");
+        else
+            printf("File closed sucessfully\n");
+    }
 
     sleep(1);
 
     // open
-    int fd2 = open("test 2.txt",  O_CREAT|O_RDWR);
+    int fd2 = open("test 2.txt",  O_CREAT|O_RDWR, 0642);
     if (fd2 == -1)
         printf("Cannot open file!\n");
     else
@@ -36,7 +37,8 @@ int main() {
 
     // read
     char buffer2[12];
-    read(fd2, buffer2, 12);
+    read(fd2, buffer2, 11);
+    buffer2[11] = 0;
     printf("Read: %s\n", buffer2);
 
     // close

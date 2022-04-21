@@ -5,7 +5,7 @@
 
 int main() {
     // open
-    int fd = open("test.txt", O_CREAT | O_RDWR);
+    int fd = open("test.txt",  O_CREAT|O_RDWR, 0642);
     if (fd == -1)
         printf("Cannot open file!\n");
     else
@@ -21,7 +21,8 @@ int main() {
 
     // read
     char buffer2[12];
-    read(fd, buffer2, 12);
+    read(fd, buffer2, 11);
+    buffer2[11] = 0;
     printf("Read: %s\n", buffer2);
 
     // close

@@ -5,17 +5,18 @@
 
 int main() {
     // create
-    int fd = creat("test.txt", S_IRWXG);
-    if (fd == -1)
+    int fd = creat("test.txt", 0642);
+    if (fd == -1) {
         printf("Cannot create file!\n");
-    else
+    }
+    else {
         printf("File created sucessfully\n");
-
-    // close
-    if (close(fd) == -1)
-        printf("Cannot close file!\n");
-    else
-        printf("File closed sucessfully\n");
+        // close
+        if (close(fd) == -1)
+            printf("Cannot close file!\n");
+        else
+            printf("File closed sucessfully\n");
+    }
 
     return 0;
 }
