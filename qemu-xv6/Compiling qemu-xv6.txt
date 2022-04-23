@@ -4,7 +4,7 @@ https://www.assistedcoding.eu/2017/11/06/install-vx6-operating-system/
 
 Install Requirements:
 """""""""""""""""""""
-sudo apt-get install qemu-kvm qemu virt-manager virt-viewer libvirt-daemon-system libvirt-clients make
+sudo apt-get update && sudo apt-get install gcc qemu-kvm qemu virt-manager virt-viewer libvirt-daemon-system libvirt-clients make
 
 Clone XV6:
 """"""""""
