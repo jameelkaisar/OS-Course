@@ -1,4 +1,4 @@
-// Run Using "gcc -pthread 08_thread.c && ./a.out"
+// Run Using "gcc -pthread 11_locks.c && ./a.out"
 
 #include <pthread.h>
 #include <stdio.h>
