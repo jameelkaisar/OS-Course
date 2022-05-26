@@ -1,4 +1,4 @@
-// Run Using "gcc -pthread 08_thread_array_sum.c && ./a.out"
+// Run Using "gcc -pthread 09_thread_array_sum.c && ./a.out"
 
 #include <pthread.h>
 #include <stdio.h>

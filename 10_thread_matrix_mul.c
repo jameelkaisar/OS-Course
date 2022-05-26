@@ -1,4 +1,4 @@
-// Run Using "gcc -pthread 08_thread_matrix_mul.c && ./a.out"
+// Run Using "gcc -pthread 10_thread_matrix_mul.c && ./a.out"
 
 #include <pthread.h>
 #include <stdio.h>
