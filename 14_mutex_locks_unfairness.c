@@ -72,7 +72,6 @@ int main() {
     printf("Number = %d\n", num);
     printf("Result: %s (Diff: %d)\n", num == 50000 ? "PASS" : "FAIL", 50000 - num);
 
-    // print time taken
     for (int i = 0; i < 5; i++) {
         printf("Time taken for thread %d: %f\n", i, (double)time[i] / CLOCKS_PER_SEC);
     }
