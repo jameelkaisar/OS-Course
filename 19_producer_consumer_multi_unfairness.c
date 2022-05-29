@@ -6,10 +6,10 @@
 #include <time.h>
 #include <unistd.h>
 
-#define MAX 10
-#define OPR 250
-#define PRO 10
-#define CON 10
+#define MAX 25
+#define OPR 2500
+#define PRO 25
+#define CON 25
 
 pthread_mutex_t buf_lock;
 pthread_mutex_t num_lock;
@@ -169,11 +169,31 @@ int main() {
 
     printf("Result: %s\n", num == 0 ? "Success" : "Fail");
 
-    for (int i = 0; i < PRO; i++)
-        printf("Producer %d: %f\n", i, (double)t_pro[i] / CLOCKS_PER_SEC);
+    // for (int i = 0; i < PRO; i++)
+    //     printf("Producer %d: %f\n", i, (double)t_pro[i] / CLOCKS_PER_SEC);
     
+    // for (int i = 0; i < CON; i++)
+    //     printf("Consumer %d: %f\n", i, (double)t_con[i] / CLOCKS_PER_SEC);
+
+    double total_pro = 0;
+    for (int i = 0; i < PRO; i++)
+        total_pro += (double)t_pro[i] / CLOCKS_PER_SEC;
+    printf("Total Producer Time: %f\n", total_pro);
+
+    double total_con = 0;
     for (int i = 0; i < CON; i++)
-        printf("Consumer %d: %f\n", i, (double)t_con[i] / CLOCKS_PER_SEC);
+        total_con += (double)t_con[i] / CLOCKS_PER_SEC;
+    printf("Total Consumer Time: %f\n", total_con);
+
+    double total_time = total_pro + total_con;
+    printf("Total Time: %f\n", total_time);
+
+    printf("Average Producer Time: %f\n", total_pro / PRO);
+    printf("First Producer Time: %f\n", (double)t_pro[0] / CLOCKS_PER_SEC);
+    printf("Average Consumer Time: %f\n", total_con / CON);
+    printf("First Consumer Time: %f\n", (double)t_con[0] / CLOCKS_PER_SEC);
+    printf("Average Time: %f\n", total_time / (PRO + CON));
+    printf("First Average Time: %f\n", (double)(t_pro[0] + t_con[0]) / (2 * CLOCKS_PER_SEC));
 
     return 0;
 }
