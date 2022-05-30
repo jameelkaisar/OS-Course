@@ -1,4 +1,4 @@
-// Run Using "gcc -pthread 22_producer_consumer_multi_condition_variables_time_unfairness.c && ./a.out"
+// Run Using "gcc -pthread 22_producer_consumer_multi_condition_variables_unfairness.c && ./a.out"
 
 #include <pthread.h>
 #include <stdio.h>
